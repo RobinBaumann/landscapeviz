@@ -41,17 +41,16 @@ def get_vectors(model, seed=None, trajectory=None):
         for layer in weights:
             # set standard normal parameters
             # filter-wise normalization
-            k = len(layer.shape) - 1
             d = np.random.multivariate_normal([0], np.eye(1), layer.shape).reshape(
                 layer.shape
             )
             dist_x = (
-                d / (1e-10 + cast * np.linalg.norm(d, axis=k))[:, np.newaxis]
+                d / (1e-10 + cast * np.linalg.norm(d, axis=-1))[..., np.newaxis]
             ).reshape(d.shape)
 
             vector_x.append(
                 (
-                    dist_x * (cast * np.linalg.norm(layer, axis=k))[:, np.newaxis]
+                    dist_x * (cast * np.linalg.norm(layer, axis=-1))[..., np.newaxis]
                 ).reshape(d.shape)
             )
 
@@ -59,12 +58,12 @@ def get_vectors(model, seed=None, trajectory=None):
                 layer.shape
             )
             dist_y = (
-                d / (1e-10 + cast * np.linalg.norm(d, axis=k))[:, np.newaxis]
+                d / (1e-10 + cast * np.linalg.norm(d, axis=-1))[..., np.newaxis]
             ).reshape(d.shape)
 
             vector_y.append(
                 (
-                    dist_y * (cast * np.linalg.norm(layer, axis=k))[:, np.newaxis]
+                    dist_y * (cast * np.linalg.norm(layer, axis=-1))[..., np.newaxis]
                 ).reshape(d.shape)
             )
 
