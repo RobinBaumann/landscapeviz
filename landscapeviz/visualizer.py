@@ -74,13 +74,11 @@ def plot_3d(key, filename=FILENAME, outfilename='', log=False, save=False):
         X, Y, Z, cmap=plt.cm.viridis, linewidth=0, antialiased=True
     )
     ax.contour(X, Y, Z, zdir='z', offset=-0.5, cmap='viridis')
-    #ax.contour(X, Y, Z, zdir='x', offset=-40, cmap='viridis')
-    #ax.contour(X, Y, Z, zdir='y', offset=40, cmap='viridis')
     ax.grid(False)
     
     fig.colorbar(surf, shrink=0.5, aspect=5)
 
     if save:
-        fig.savefig(f"./files/{outfilename}_surface.pdf")
+        fig.savefig(outfilename)
 
     plt.show()

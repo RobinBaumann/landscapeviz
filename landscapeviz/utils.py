@@ -122,9 +122,9 @@ def build_mesh(
             Z.append(_obj_fn(model, data, solution))
 
     Z = np.array(Z)
-    os.makedirs("./files", exist_ok=True)
+    #os.makedirs("./files", exist_ok=True)
 
-    with h5py.File("./files/{}.hdf5".format(filename), "w") as f:
+    with h5py.File(f"{filename}", "w") as f:
 
         f["space"] = space
         original_results = _obj_fn(model, data, origin)
